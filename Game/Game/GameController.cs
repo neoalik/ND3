@@ -132,9 +132,11 @@ namespace ConsoleGame.Game
 
                 if (!stopGame)
                 {
-                    if (myGame.CheckEnemyPositionWithBullet() > -1)
+                    int killBulletEnemysTime = myGame.CheckEnemyPositionWithBullet();
+
+                    if (killBulletEnemysTime > 0)
                     {
-                        myScore.SetScore(100);
+                        myScore.SetScore(killBulletEnemysTime * 100);
 
                         int enemyGenerate = rnd.Next(1, MAX_RANDOM_APPEND_ENEMY);
 
@@ -145,6 +147,7 @@ namespace ConsoleGame.Game
                         }
                     }
                     
+
                     if (myGame.CheckEnemyWithHeroPosition() > -1)
                     {
                         stopGame = true;
@@ -155,9 +158,11 @@ namespace ConsoleGame.Game
                         continue;
                     }
 
-                    if (myGame.CheckEnemyWorldPosition() > -1)
+                    int killWorldEnemy = myGame.CheckEnemyWorldPosition();
+
+                    if (killWorldEnemy > 0)
                     {
-                        if (worldLive.GetLive(true) <= 0)
+                        if (worldLive.GetLive(killWorldEnemy) <= 0)
                         {
                             stopGame = true;
 

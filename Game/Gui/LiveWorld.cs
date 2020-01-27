@@ -43,18 +43,23 @@ namespace ConsoleGame.Gui
             Console.SetCursorPosition(0, 0);
         }
         
-        public int GetLive(bool lostlive = false)
+        public int GetLive(int lostlive = 0)
         {
-            if (lostlive)
+            //lostlive = Math.Abs(lostlive);
+
+            if (lostlive > 0)
             {
                 char[] lives = _liveTextBlock.Label.ToCharArray();
 
-                if (_live > 0)
+                for (int i = 0; i < lostlive; i++)
                 {
+                    if (_live > 0)
+                    {
 
-                    lives[lives.Length - _live] = ' ';
+                        lives[lives.Length - _live] = ' ';
 
-                    _live = _live - 1;
+                        _live = _live - 1;
+                    }
                 }
 
                 _liveTextBlock.Label = new string(lives);

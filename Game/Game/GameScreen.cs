@@ -119,6 +119,8 @@ namespace ConsoleGame.Game
 
         public int CheckEnemyWorldPosition()
         {
+            int killWorldEnemy = 0;
+
             for (int i = _enemies.Count; i > 0; i--)
             {
                 if (_enemies[_enemies.Count - i].GetY() >= _height - 2)
@@ -129,11 +131,13 @@ namespace ConsoleGame.Game
 
                     _enemies.Remove(_enemies[_enemies.Count - i]);
 
-                    return indexEnemy;
+                    killWorldEnemy++;
+                    i--;
+                    //continue;
                 }
             }
 
-            return -1;
+            return killWorldEnemy;
         }
 
         public int CheckEnemyWithHeroPosition()
@@ -175,8 +179,8 @@ namespace ConsoleGame.Game
         public int CheckEnemyPositionWithBullet()
         {
             //patikrinsim bullet pataike i enemey or not
-            
-            //int kill
+
+            int killBulletEnemy = 0;
 
             for(int j = _bullets.Count; j > 0; j--)
             {
@@ -184,7 +188,7 @@ namespace ConsoleGame.Game
                 
                 for (int i = _enemysOnlyByX.Count; i > 0; i--)
                 {
-                    if (_enemysOnlyByX[_enemysOnlyByX.Count - i].GetY() == _bullets[_bullets.Count - j].GetY())
+                     if (_enemysOnlyByX[_enemysOnlyByX.Count - i].GetY() == _bullets[_bullets.Count - j].GetY())
                     {
                         int indexEnemy = _enemysOnlyByX[_enemysOnlyByX.Count - i].GetId();
 
@@ -195,36 +199,17 @@ namespace ConsoleGame.Game
                         //remove bullets
                         _bullets[_bullets.Count - j].Clear();
                         _bullets.Remove(_bullets[_bullets.Count - j]);
-
-
-                        return indexEnemy;
-                        //break;
+                        j--;
+                        killBulletEnemy++;
+                        //continue;
+                        //return indexEnemy;
+                        break;
                     }
                 }
 
             }
 
-
-
-            /*foreach (Bullet bullet in _bullets)
-            {
-                List<Enemy> _enemysOnlyByX = _enemies.Where(item => item.GetX() == bullet.GetX()).ToList();
-
-                for (int i = _enemysOnlyByX.Count; i > 0; i--)
-                {
-                    if(_enemysOnlyByX[_enemysOnlyByX.Count - i].GetY() == bullet.GetY())
-                    {
-                        int indexEnemy = _enemysOnlyByX[_enemysOnlyByX.Count - i].GetId();
-
-                        _enemies.Remove(_enemysOnlyByX[_enemysOnlyByX.Count - i]);
-                        
-                        return indexEnemy;
-                    }
-                }
-            }*/
-
-
-            return -1;
+            return killBulletEnemy;
         }
         
     }

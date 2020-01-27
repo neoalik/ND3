@@ -121,18 +121,18 @@ namespace ConsoleGame.Game
         {
             int killWorldEnemy = 0;
 
-            for (int i = _enemies.Count; i > 0; i--)
+            for (int i = _enemies.Count - 1; i >= 0; i--)
             {
-                if (_enemies[_enemies.Count - i].GetY() >= _height - 2)
+                if (_enemies[_enemies.Count - 1 - i].GetY() >= _height - 2)
                 {
-                    int indexEnemy = _enemies[_enemies.Count - i].GetId();
+                    //int indexEnemy = _enemies[_enemies.Count - i].GetId();
 
-                    _enemies[_enemies.Count - i].Clear();
+                    _enemies[_enemies.Count - 1 - i].Clear();
 
-                    _enemies.Remove(_enemies[_enemies.Count - i]);
+                    _enemies.Remove(_enemies[_enemies.Count - 1 - i]);
 
                     killWorldEnemy++;
-                    i--;
+                    //i--;
                     //continue;
                 }
             }
@@ -144,14 +144,14 @@ namespace ConsoleGame.Game
         {
             //Console.SetCursorPosition(_width + 5, 5);
 
-            for (int i = _enemies.Count; i > 0; i--)
+            for (int i = _enemies.Count - 1; i >= 0; i--)
             {
                 
                 //Console.WriteLine(_enemies[_enemies.Count - i].GetId() + ": "+ _enemies[_enemies.Count - i].GetY());
 
-                if (_enemies[_enemies.Count - i].GetY() >= _height - 2 && _enemies[_enemies.Count - i].GetX() == _hero.GetX())
+                if (_enemies[_enemies.Count - 1 - i].GetY() >= _height - 2 && _enemies[_enemies.Count - 1 - i].GetX() == _hero.GetX())
                 {
-                    int indexEnemy = _enemies[_enemies.Count - i].GetId();
+                    int indexEnemy = _enemies[_enemies.Count - 1 - i].GetId();
 
                     return indexEnemy;
                 }
@@ -182,15 +182,15 @@ namespace ConsoleGame.Game
 
             int killBulletEnemy = 0;
 
-            for(int j = _bullets.Count; j > 0; j--)
+            /*for(int j = _bullets.Count; j > 0; j--)
             {
                 List<Enemy> _enemysOnlyByX = _enemies.Where(item => item.GetX() == _bullets[_bullets.Count - j].GetX()).ToList();
                 
                 for (int i = _enemysOnlyByX.Count; i > 0; i--)
                 {
-                     if (_enemysOnlyByX[_enemysOnlyByX.Count - i].GetY() == _bullets[_bullets.Count - j].GetY())
+                    if (_enemysOnlyByX[_enemysOnlyByX.Count - i].GetY() == _bullets[_bullets.Count - j].GetY())
                     {
-                        int indexEnemy = _enemysOnlyByX[_enemysOnlyByX.Count - i].GetId();
+                        //int indexEnemy = _enemysOnlyByX[_enemysOnlyByX.Count - i].GetId();
 
                         _enemysOnlyByX[_enemysOnlyByX.Count - i].Clear();
 
@@ -203,6 +203,33 @@ namespace ConsoleGame.Game
                         killBulletEnemy++;
                         //continue;
                         //return indexEnemy;
+                        break;
+                    }
+                }
+
+            }
+            */
+
+
+            for (int j = _bullets.Count - 1; j >= 0; j--)
+            {
+                List<Enemy> _enemysOnlyByX = _enemies.Where(item => item.GetX() == _bullets[_bullets.Count - 1 - j].GetX()).ToList();
+
+                for (int i = _enemysOnlyByX.Count - 1; i >= 0; i--)
+                {
+                    if (_enemysOnlyByX[_enemysOnlyByX.Count - 1 - i].GetY() == _bullets[_bullets.Count - 1 - j].GetY())
+                    {
+                        //int indexEnemy = _enemysOnlyByX[_enemysOnlyByX.Count - i].GetId();
+
+                        _enemysOnlyByX[_enemysOnlyByX.Count - 1 - i].Clear();
+
+                        _enemies.Remove(_enemysOnlyByX[_enemysOnlyByX.Count - 1 - i]);
+
+                        //remove bullets
+                        _bullets[_bullets.Count - 1 - j].Clear();
+                        _bullets.Remove(_bullets[_bullets.Count - 1 - j]);
+                        //j--;
+                        killBulletEnemy++;
                         break;
                     }
                 }

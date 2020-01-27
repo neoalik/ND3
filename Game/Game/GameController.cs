@@ -142,7 +142,7 @@ namespace ConsoleGame.Game
 
                         for (int i = 0; i < enemyGenerate; i++)
                         {
-                            myGame.AddEnemy(new Enemy(_enemysCounter, rnd.Next(1, myGame.ScreenWidth - 2), rnd.Next(1, 5), "enemy" + _enemysCounter, ENEMY_MARKER, GenerateSpeed(0.02, 0.05)));
+                            myGame.AddEnemy(new Enemy(_enemysCounter, rnd.Next(1, myGame.ScreenWidth - 2), rnd.Next(1, 5), "enemy" + _enemysCounter, ENEMY_MARKER, GenerateSpeed(0.01, 0.02)));
                             _enemysCounter++;
                         }
                     }
